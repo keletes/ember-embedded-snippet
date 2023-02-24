@@ -1,6 +1,9 @@
 import Service from '@ember/service';
 
 export default class EmbeddedService extends Service {
+  rootElement;
+  args = {};
+  properties = {};
   /**
    * The host name of our origin server, where the embedded app itself is hosted
    *
@@ -15,9 +18,4 @@ export default class EmbeddedService extends Service {
       ? scriptTag.src.replace(/(https?:\/\/.*?)\/.*/g, '$1')
       : undefined;
   }
-
-  args =
-    typeof window !== undefined
-      ? window.__ember_embedded_snippet_args ?? {}
-      : {};
 }

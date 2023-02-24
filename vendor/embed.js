@@ -112,6 +112,8 @@
     #application;
     #shadowRoot;
 
+    #properties;
+
     async connectedCallback() {
       if (this.#application) {
         return;
@@ -120,12 +122,10 @@
       let head;
       if (this.getAttribute('shadow') !== null) {
         this.#shadowRoot = this.attachShadow({ mode: 'open' });
-        const rootParent = document.createElement('div');
         const rootElement = document.createElement('div');
-        rootParent.appendChild(rootElement);
-        this.#shadowRoot.appendChild(rootParent);
+        this.#shadowRoot.appendChild(rootElement);
         this.#rootElement = rootElement;
-        head = rootParent;
+        head = rootElement;
       } else {
         this.#rootElement = this;
         head = this;
@@ -133,9 +133,7 @@
 
       await setup(head);
 
-      window.__ember_embedded_snippet_args = this.customArgs;
-
-      this.#application = await startApp(this.#rootElement);
+      this.#application = await startApp(this.#rootElement, {args: this.customArgs, properties: this.#properties});
     }
 
     disconnectedCallback() {
@@ -157,6 +155,14 @@
         );
 
       return Object.freeze(args);
+    }
+
+    set properties(value) {
+      this.#properties = value;
+    }
+
+    get properties() {
+      return this.#properties;
     }
   }
 
