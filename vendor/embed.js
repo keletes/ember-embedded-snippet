@@ -112,8 +112,6 @@
     #application;
     #shadowRoot;
 
-    #properties;
-
     async connectedCallback() {
       if (this.#application) {
         return;
@@ -133,7 +131,7 @@
 
       await setup(head);
 
-      this.#application = await startApp(this.#rootElement, {args: this.customArgs, properties: this.#properties});
+      this.#application = await startApp(this.#rootElement, {args: this.customArgs, webComponent: this});
     }
 
     disconnectedCallback() {
@@ -155,14 +153,6 @@
         );
 
       return Object.freeze(args);
-    }
-
-    set properties(value) {
-      this.#properties = value;
-    }
-
-    get properties() {
-      return this.#properties;
     }
   }
 

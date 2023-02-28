@@ -1,9 +1,10 @@
 import Service from '@ember/service';
+import { tracked } from '@glimmer/tracking';
 
 export default class EmbeddedService extends Service {
   rootElement;
-  args = {};
-  properties = {};
+  webComponent;
+  @tracked args = {};
   /**
    * The host name of our origin server, where the embedded app itself is hosted
    *
