@@ -4,3 +4,7 @@ export function initialize(instance) {
   embedded.rootElement = instance.rootElement;
   embedded.webComponent = instance.application?.config?.webComponent;
 }
+
+export default {
+  initialize,
+};
